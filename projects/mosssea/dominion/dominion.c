@@ -674,7 +674,7 @@ int adventurerPlay(int choice1, int choice2, int choice3, struct gameState* stat
               }
               while(z-1>=0){
 	        state->discard[currentPlayer][state->discardCount[currentPlayer]++]=temphand[z-1]; // discard all cards in play that have been drawn
-	        z=z-1;
+	        z=z+1;
               }
               return 0;
 }
@@ -685,7 +685,7 @@ int smithyPlay(int choice1, int choice2, int choice3, struct gameState* state, i
       int currentPlayer = whoseTurn(state);
 
 
-      for (int i = 0; i < 3; i++)
+      for (int i = 0; i < 2; i++)
 	{
 	  drawCard(currentPlayer, state);
 	}
@@ -721,7 +721,7 @@ int minePlay(int choice1, int choice2, struct gameState *state, int handPos){
 	  return -1;
 	}
 		
-      if (choice2 > treasure_map || choice2 < curse)
+      if (choice2 > treasure_map)
 	{
 	  return -1;
 	}
@@ -731,7 +731,7 @@ int minePlay(int choice1, int choice2, struct gameState *state, int handPos){
 	  return -1;
 	}
 
-      gainCard(choice2, state, 2, currentPlayer);
+      gainCard(choice1, state, 2, currentPlayer);
 
       //discard card from hand
       discardCard(handPos, currentPlayer, state, 0);
@@ -757,7 +757,7 @@ villagePlay(int handPos, struct gameState* state){
         drawCard(currentPlayer, state);
 		
         //+2 Actions
-        state->numActions = state->numActions + 2;
+        state->numActions += state->numActions + 2;
 		
         //discard played card from hand
         discardCard(handPos, currentPlayer, state, 0);
