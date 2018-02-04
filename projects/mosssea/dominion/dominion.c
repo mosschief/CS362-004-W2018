@@ -265,7 +265,7 @@ int playCard(int handPos, int choice1, int choice2, int choice3, struct gameStat
 
   //update coins (Treasure cards may be added with card draws)
   updateCoins(state->whoseTurn, state, coin_bonus);
-	
+
   return 0;
 }
 
@@ -662,6 +662,7 @@ int adventurerPlay(int choice1, int choice2, int choice3, struct gameState* stat
 	        if (state->deckCount[currentPlayer] <1){//if the deck is empty we need to shuffle discard and add to deck
 	          shuffle(currentPlayer, state);
 	        }
+	        drawCard(currentPlayer, state);
 	        drawCard(currentPlayer, state);
 	        cardDrawn = state->hand[currentPlayer][state->handCount[currentPlayer]-1];//top card of hand is most recently drawn card.
 	        if (cardDrawn == copper || cardDrawn == silver || cardDrawn == gold)
