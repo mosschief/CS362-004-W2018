@@ -29,8 +29,11 @@ int main() {
     for(i = 0; i < 4; i++){
         g.whoseTurn = i;
         for(j = 0; j < 5; j ++){
-            initializeGame(4, cards, 100, &g);
             int check = 0;
+            int playerCardCount[4];
+            for(k = 0; k < 4; k++){
+                playerCardCount[k] = g.handCount[k];
+            }
             temp = g.hand[i][j]; // save current card at hand position to temp
             g.hand[i][j] = smithy;
 
@@ -46,29 +49,30 @@ int main() {
                 supplyCards[k] = g.supplyCount[k];
             }
 
-            cardEffect(smithy, choice1, choice2, choice3, &g, 0, 0);
+            cardEffect(smithy, choice1, choice2, choice3, &g, j, 0);
 
             // checking if hand count for player is as expected
-            if(g.handCount[i] != 7){
+            if(g.handCount[i] != (playerCardCount[i] + 2)){
                 check += 1;
-                printf("Expected 7 cards in player hand got %d!\n", g.handCount[i]);
+                printf("Expected %d cards in player hand got %d!\n",playerCardCount[i] +2, g.handCount[i]);
             }
 
             // checking if cards came from player pile (that total cards of each type are same)
             numberOfCards[smithy] -= 1; // accounts for played smithy card
             for(k=0; k <= treasure_map; k++){
-                if(numberOfCards[k] != fullDeckCount(i, k, &g)){
+                if(numberOfCards[k] != fullDeckCount(i, k, &g) && k != smithy){
                     check++;
-                    printf("player cards changed (card came from outside source)\n");
+                    printf("player cards changed\n");
+                    break;
                 }
             }
 
             // checking if handcount for other players is as expected
             for(k = 0; k < 4; k++){
                 if(k != i){
-                    if(g.handCount[k] != 7){
+                    if(g.handCount[k] != playerCardCount[k]){
                         check += 1;
-                        printf("Expected 5 cards in player %d hand got %d!", k, g.handCount[k]);
+                        printf("Expected %d cards in player %d hand got %d!\n",playerCardCount[k], k, g.handCount[k]);
                     }
                 }
             }
@@ -87,9 +91,6 @@ int main() {
             else{
                 printf("Player %d position %d : Failed!\n", i, j);
             }
-
-            memset(&g, 23, sizeof(struct gameState));   // clear the game state
-
         }
     }
 
