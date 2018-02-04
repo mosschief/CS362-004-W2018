@@ -16,9 +16,23 @@ int main() {
     int i = 0;
     int j = 0;
     int check = 0;
-    initializeGame(5,cards, 100, &g);
+    initializeGame(4,cards, 100, &g);
     printf("--------------------Testing Adventurer Card----------\n");
     // set player decks
+
+
+// set all players initial hands and discard piles
+    for(i = 0; i < 4; i++){
+        g.handCount[i] = 5;
+        printf("Handcount player %d = %d\n", i, g.handCount[i]);
+        g.hand[i][0] = adventurer;
+        g.discardCount[i] = 3;
+        for(k=1; k<5; k++){
+            g.hand[i][k] = village;
+            g.discard[i][k] = copper;
+        }
+        printf("Handcount player %d = %d\n", i, g.handCount[i]);
+    }
 
     // set player 1 entire deck to gold
     g.deckCount[0] = 6;
@@ -58,21 +72,20 @@ int main() {
     }
 
     // player 5 deck empty
-    g.deckCount[4] = 0;
-    g.discardCount[4] = 3;
-    for(int i = 0; i < 5; i++){
-        g.discard[4][i] = copper;
-        g.deck[4][i] = -1;
-    }
-
 
     // loop through test decks (players)
     for(i = 0; i < 5; i++){
         check = 0;
-        g.whoseTurn = i;
-        g.hand[i][0] = adventurer;  // gives player adventurer card
-        if(g.handCount[i] <= 0){
-            g.handCount[i] = 1;
+        g.whoseTurn = i%4;
+
+        if(i == 5){
+
+            g.deckCount[0] = 0;
+            g.discardCount[0] = 3;
+            for(int i = 0; i < 5; i++){
+                g.discard[0][i] = copper;
+                g.deck[0][i] = -1;
+            }
         }
 
         // save supply of kingdom and victory cards (to check later)
@@ -122,7 +135,7 @@ int main() {
 
         // add cards already in discard pile to ideal discard array
         for(k=0; k<g.discardCount[i]; k++){
-            printf("adding card %d\n", g.discard[i][k]);
+//            printf("adding card %d\n", g.discard[i][k]);
             playerDiscard[g.discard[i][k]]++;
         }
 
@@ -140,6 +153,7 @@ int main() {
             if (playerHand[k] != 0){
                 printf("Incorrect cards in player Hand!\n");
                 check++;
+                break;
             }
         }
 
@@ -152,6 +166,7 @@ int main() {
             if(playerDiscard[k] != 0){
                 printf("Incorrect cards in player discard pile!\n");
                 check++;
+                break;
             }
         }
 
@@ -163,6 +178,7 @@ int main() {
             if(playerDeck[k] != 0){
                 printf("Player deck does not have correct cards!\n");
                 check++;
+                break;
             }
         }
 
@@ -171,14 +187,15 @@ int main() {
             if(g.supplyCount[k] != supplyCards[k]){
                 printf("Supply cards altered!\n");
                 check++;
+                break;
             }
         }
 
         if(check != 0){
-            printf("Player %d tests: Failed! (%d tests failed)\n", i, check);
+            printf("Deck Configuration %d tests: Failed! (%d tests failed)\n", i, check);
         }
         else{
-            printf("Player %d tests: Passed!\n", i);
+            printf("Deck Configuration %d tests: Passed!\n", i);
         }
     }
 

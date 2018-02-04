@@ -67,8 +67,8 @@ unittestresults.out: unittest1 unittest2 unittest3 unittest4 cardtest1 cardtest2
 	./unittest4
 	./cardtest1
 	./cardtest2
-	gcov -abcfu dominion.c
-	#gcov dominion.c
+	#gcov -abcfu dominion.c
+	gcov dominion.c
 
 clean:
 	rm -f *.o playdom.exe playdom player player.exe unittest1 unittest2 unittest3 unittest4 cardtest1 cardtest2 cardtest3 cardtest4 *.gcov *.gcda *.gcno *.so *.out testDrawCard testDrawCard.exe
