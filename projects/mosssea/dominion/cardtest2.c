@@ -5,8 +5,6 @@
 #include "rngs.h"
 #include "dominion_helpers.h"
 
-
-
 int main() {
 
     struct gameState g;
@@ -24,14 +22,12 @@ int main() {
 // set all players initial hands and discard piles
     for(i = 0; i < 4; i++){
         g.handCount[i] = 5;
-        printf("Handcount player %d = %d\n", i, g.handCount[i]);
         g.hand[i][0] = adventurer;
         g.discardCount[i] = 3;
         for(k=1; k<5; k++){
             g.hand[i][k] = village;
             g.discard[i][k] = copper;
         }
-        printf("Handcount player %d = %d\n", i, g.handCount[i]);
     }
 
     // set player 1 entire deck to gold
@@ -71,7 +67,6 @@ int main() {
         }
     }
 
-    // player 5 deck empty
 
     // loop through test decks (players)
     for(i = 0; i < 5; i++){
@@ -198,5 +193,4 @@ int main() {
             printf("Deck Configuration %d tests: Passed!\n", i);
         }
     }
-
 }

@@ -30,7 +30,7 @@ int main() {
         g.whoseTurn = i;
         for(j = 0; j < 5; j ++){
             int check = 0;
-            int playerCardCount[4];
+            int playerCardCount[4]; // save current players card count
             for(k = 0; k < 4; k++){
                 playerCardCount[k] = g.handCount[k];
             }
@@ -51,31 +51,25 @@ int main() {
 
             cardEffect(smithy, choice1, choice2, choice3, &g, j, 0);
 
-            // checking if hand count for player is as expected
-            if(g.handCount[i] != (playerCardCount[i] + 2)){
-                check += 1;
-                printf("Expected %d cards in player hand got %d!\n",playerCardCount[i] +2, g.handCount[i]);
-            }
 
             // checking if cards came from player pile (that total cards of each type are same)
             numberOfCards[smithy] -= 1; // accounts for played smithy card
             for(k=0; k <= treasure_map; k++){
-                if(numberOfCards[k] != fullDeckCount(i, k, &g) && k != smithy){
+                if(numberOfCards[k] != fullDeckCount(i, k, &g)){
                     check++;
                     printf("player cards changed\n");
                     break;
                 }
             }
 
-            // checking if handcount for other players is as expected
+            // checking if handcount for all players is as expected
             for(k = 0; k < 4; k++){
-                if(k != i){
-                    if(g.handCount[k] != playerCardCount[k]){
-                        check += 1;
-                        printf("Expected %d cards in player %d hand got %d!\n",playerCardCount[k], k, g.handCount[k]);
-                    }
+                if(g.handCount[k] != playerCardCount[k]){
+                    check += 1;
+                    printf("Expected %d cards in player %d hand got %d!\n",playerCardCount[k], k, g.handCount[k]);
                 }
             }
+
 
             // checks if supply card piles changed
             for(k=0; k <= treasure_map; k++){
