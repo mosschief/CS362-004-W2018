@@ -82,12 +82,11 @@ unittestresults.out: unittest1 unittest2 unittest3 unittest4 cardtest1 cardtest2
 	echo >> unittestresult.out
 	cat dominion.c.gcov >> unittestresult.out
 
-randomtestcard1:
+randomtestcard1: randomtestcard1.c dominion.o rngs.o
 	gcc -o randomtestcard1 randomtestcard1.c -g  dominion.o rngs.o $(CFLAGS)
 
 randomtests: randomtestcard1
-	./randomtestcard1 > unittestresult.out
-
+	./randomtestcard1 > randomtestcard1.out
 
 clean:
 	rm -f *.o playdom.exe playdom player player.exe unittest1 unittest2 unittest3 unittest4 cardtest1 cardtest2 cardtest3 cardtest4 randomtestcard1 *.gcov *.gcda *.gcno *.so *.out testDrawCard testDrawCard.exe

@@ -6,9 +6,10 @@
 #include "dominion.h"
 #include "dominion_helpers.h"
 #include <stdlib.h>
-int main{
+#include <math.h>
 
-    struct gameState g;
+int main() {
+
     int cards[10] = {adventurer, embargo, village, minion, mine, cutpurse, sea_hag, tribute,
                      smithy, council_room};
     int k = 0;
@@ -18,32 +19,33 @@ int main{
 
     printf("--------------------Testing Gardens Card----------\n");
 
-
-    int i, j, k;
-
     // seed random
     srand(time(NULL));
 
     // runs 1000 random tests
-    for(k = 0; k < 1000; k++) {
+    for(k = 0; k < 2000; k++) {
 
         struct gameState myGameState;
 
         // fill gamestate with random data
 
-        for (i = 0; i < 2000; i++) {
-            for (j = 0; j < sizeof(struct gameState); j++) {
-                ((char *) myGameState)[j] = floor(rand() * 256);
-            }
+        for (j = 0; j < sizeof(struct gameState); j++) {
+            ( (char*) &myGameState)[j] = floor(rand() * 256);
         }
+
         // choose random hand position (within limits)
         int handPos = rand() % 10;
 
-        int myReturn = cardEffect(gardens,0,0,0, myGameState, handPos);
+        int myReturn = cardEffect(gardens,0,0,0, &myGameState, handPos, NULL);
 
         if (myReturn != -1){
-            printf("Test Failed! Return not equal to -1");
+            printf("Test Failed! Return not equal to -1\n");
+            check += 1;
         }
+    }
+
+    if(check == 0){
+        printf("All tests passed!\n");
     }
 
     return 0;
