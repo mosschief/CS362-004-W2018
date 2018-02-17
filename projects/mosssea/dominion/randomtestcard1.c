@@ -8,6 +8,10 @@
 #include <stdlib.h>
 #include <math.h>
 
+#define ANSI_COLOR_RED     "\x1b[31m"
+#define ANSI_COLOR_GREEN   "\x1b[32m"
+#define ANSI_COLOR_RESET   "\x1b[0m"
+
 int main() {
 
     int cards[10] = {adventurer, embargo, village, minion, mine, cutpurse, sea_hag, tribute,
@@ -39,13 +43,13 @@ int main() {
         int myReturn = cardEffect(gardens,0,0,0, &myGameState, handPos, NULL);
 
         if (myReturn != -1){
-            printf("Test Failed! Return not equal to -1\n");
+            printf(ANSI_COLOR_RED  "Test Failed at handpos %d! Return not equal to -1\n" ANSI_COLOR_RESET, handPos);
             check += 1;
         }
     }
 
     if(check == 0){
-        printf("All tests passed!\n");
+        printf( ANSI_COLOR_GREEN "All tests passed!\n" ANSI_COLOR_RESET);
     }
 
     return 0;
