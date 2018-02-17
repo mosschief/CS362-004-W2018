@@ -210,7 +210,6 @@ int shuffle(int player, struct gameState *state) {
     return -1;
   qsort ((void*)(state->deck[player]), state->deckCount[player], sizeof(int), compare); 
   /* SORT CARDS IN DECK TO ENSURE DETERMINISM! */
-
   while (state->deckCount[player] > 0) {
     card = floor(Random() * state->deckCount[player]);
     newDeck[newDeckPos] = state->deck[player][card];

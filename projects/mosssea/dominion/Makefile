@@ -85,6 +85,9 @@ unittestresults.out: unittest1 unittest2 unittest3 unittest4 cardtest1 cardtest2
 randomtestcard1: randomtestcard1.c dominion.o rngs.o
 	gcc -o randomtestcard1 randomtestcard1.c -g  dominion.o rngs.o $(CFLAGS)
 
+randomtestcard2: randomtestcard2.c dominion.o rngs.o
+	gcc -o randomtestcard2 randomtestcard2.c -g  dominion.o rngs.o $(CFLAGS)
+
 randomtestadventurer: randomtestadventurer.c dominion.o rngs.o
 	gcc -o randomtestadventurer randomtestadventurer.c -g  dominion.o rngs.o $(CFLAGS)
 
@@ -102,9 +105,13 @@ randomtests: randomtestcard1 randomtestadventurer
 	echo "---------------------------------" >> randomtestadventurer.out
 	echo >> randomtestadventurer.out
 	gcov -abcfu dominion.c -b >> randomtestadventurer.out
-
-
+	./randomtestcard2 > randomtestcard2.out
+	echo >> randomtestcard2.out
+	echo "Coverage Results for Great Hall Test" >> randomtestcard2.out
+	echo "---------------------------------" >> randomtestcard2.out
+	echo >> randomtestcard2.out
+	gcov -abcfu dominion.c -b >> randomtestcard2.out
 
 
 clean:
-	rm -f *.o playdom.exe playdom player player.exe unittest1 unittest2 unittest3 unittest4 cardtest1 cardtest2 cardtest3 cardtest4 randomtestcard1 randomtestadventurer *.gcov *.gcda *.gcno *.so *.out testDrawCard testDrawCard.exe
+	rm -f *.o playdom.exe playdom player player.exe unittest1 unittest2 unittest3 unittest4 cardtest1 cardtest2 cardtest3 cardtest4 randomtestcard1 randomtestcard2 randomtestadventurer *.gcov *.gcda *.gcno *.so *.out testDrawCard testDrawCard.exe

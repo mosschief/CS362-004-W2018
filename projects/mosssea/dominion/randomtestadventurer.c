@@ -44,7 +44,7 @@ int main() {
         int handPos = rand() % 10;
 
         // choose random number of players
-        int players = rand() % 4 + 1;
+        int players = (rand() % 3) + 2;
 
         // initialize game
         initializeGame(players, cards, rand()%9999999 + 1, &g);
@@ -66,7 +66,7 @@ int main() {
         }
 
         // choose random player to play card
-        g.whoseTurn = rand() % 4;
+        g.whoseTurn = rand() % players;
 
         // save supply of kingdom and victory cards (to check later)
 
