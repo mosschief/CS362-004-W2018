@@ -195,10 +195,10 @@ int main() {
     }
 
     if(totalCheck == 0){
-        printf(ANSI_COLOR_GREEN "All tests passed!\n" ANSI_COLOR_RESET );
+        printf( "All tests passed!\n"  );
     }
     else{
-        printf(ANSI_COLOR_RED "%d cases failed out of 1000!\n", totalCheck);
+        printf( "%d cases failed out of 1000!\n", totalCheck);
         printf("Supply Pile Altered in %d tests\n", supplyAltered);
         printf("Incorrect player hand in %d tests\n", incorrectHand);
         printf("Incorrect player discard in %d tests\n",incorrectDiscard);

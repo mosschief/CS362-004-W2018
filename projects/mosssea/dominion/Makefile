@@ -92,7 +92,7 @@ randomtestadventurer: randomtestadventurer.c dominion.o rngs.o
 	gcc -o randomtestadventurer randomtestadventurer.c -g  dominion.o rngs.o $(CFLAGS)
 
 
-randomtests: randomtestcard1 randomtestadventurer
+randomtests: randomtestcard1 randomtestcard2 randomtestadventurer
 	./randomtestcard1 > randomtestcard1.out
 	echo >> randomtestcard1.out
 	echo "Coverage Results for Garden Test" >> randomtestcard1.out
@@ -111,6 +111,13 @@ randomtests: randomtestcard1 randomtestadventurer
 	echo "---------------------------------" >> randomtestcard2.out
 	echo >> randomtestcard2.out
 	gcov -abcfu dominion.c -b >> randomtestcard2.out
+	echo >> randomtestcard1.out
+	echo >> randomtestcard2.out
+	echo >> randomtestadventurer.out
+	cat dominion.c.gcov >> randomtestcard1.out
+	cat dominion.c.gcov >> randomtestcard2.out
+	cat dominion.c.gcov >> randomtestadventurer.out
+
 
 
 clean:

@@ -160,15 +160,15 @@ int main() {
     }
 
     if(totalCheck == 0){
-        printf( ANSI_COLOR_GREEN "All tests passed!\n" ANSI_COLOR_RESET);
+        printf(  "All tests passed!\n" );
     }
     else{
         printf("%d test cases failed out of 1000!\n", totalCheck);
-        printf(ANSI_COLOR_RED "Player Cards Changed in %d Cases\n" ANSI_COLOR_RESET, playerCardChanged);
-        printf(ANSI_COLOR_RED "Player Handcount Incorrect in %d Cases\n" ANSI_COLOR_RESET, handcountIncorrect);
-        printf(ANSI_COLOR_RED "Test Returned Error Code in %d Cases\n" ANSI_COLOR_RESET, returnedError);
-        printf(ANSI_COLOR_RED "Supply Cards Altered in %d Cases\n" ANSI_COLOR_RESET, supplyCardsAltered);
-        printf(ANSI_COLOR_RED "Incorrect Number of Actions in %d Cases\n" ANSI_COLOR_RESET, incorrectActions);
+        printf( "Player Cards Changed in %d Cases\n" , playerCardChanged);
+        printf( "Player Handcount Incorrect in %d Cases\n" , handcountIncorrect);
+        printf( "Test Returned Error Code in %d Cases\n" , returnedError);
+        printf( "Supply Cards Altered in %d Cases\n" , supplyCardsAltered);
+        printf( "Incorrect Number of Actions in %d Cases\n" , incorrectActions);
     }
 
     return 0;

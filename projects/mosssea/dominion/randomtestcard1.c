@@ -37,19 +37,20 @@ int main() {
             ( (char*) &myGameState)[j] = floor(rand() * 256);
         }
 
+
         // choose random hand position (within limits)
         int handPos = rand() % 10;
 
         int myReturn = cardEffect(gardens,0,0,0, &myGameState, handPos, NULL);
 
         if (myReturn != -1){
-            printf(ANSI_COLOR_RED  "Test Failed at handpos %d! Return not equal to -1\n" ANSI_COLOR_RESET, handPos);
+            printf( "Test Failed at handpos %d! Return not equal to -1\n", handPos);
             check += 1;
         }
     }
 
     if(check == 0){
-        printf( ANSI_COLOR_GREEN "All tests passed!\n" ANSI_COLOR_RESET);
+        printf( "All tests passed!\n");
     }
 
     return 0;
