@@ -40,9 +40,6 @@ int main() {
 
         int possibleCards[5] = {copper, silver, gold, village, tribute};
 
-        // choose random hand position (within limits)
-        int handPos = rand() % 10;
-
         // choose random number of players
         int players = (rand() % 3) + 2;
 
@@ -67,6 +64,21 @@ int main() {
 
         // choose random player to play card
         g.whoseTurn = rand() % players;
+        int whoseTurn = g.whoseTurn;
+
+        int handPos = 0;
+        // choose random hand position (within limits)
+        if(g.handCount[g.whoseTurn] == 0){
+            handPos = 0;
+            g.handCount[g.whoseTurn] = 1;
+        }
+        else{
+            handPos = rand() % g.handCount[g.whoseTurn];
+        }
+
+        // set handPos to adventurer
+        g.hand[g.whoseTurn][handPos] = adventurer;
+
 
         // save supply of kingdom and victory cards (to check later)
 
@@ -80,8 +92,8 @@ int main() {
         for(k = 0; k <= treasure_map; k++){ // initialize array to 0
             playerHand[k] = 0;
         }
-        for(int k = 0; k < g.handCount[i]; k++){
-            playerHand[g.hand[i][k]]++;
+        for(k = 0; k < g.handCount[whoseTurn]; k++){
+            playerHand[g.hand[g.whoseTurn][k]]++;
         }
 
         // get cards in players discard (to compare later)
@@ -89,8 +101,8 @@ int main() {
         for(k = 0; k <= treasure_map; k++){ // initialize array to 0
             playerDiscard[k] = 0;
         }
-        for(int k = 0; k < g.discardCount[i]; k++){
-            playerDiscard[g.discard[i][k]]++;
+        for(k = 0; k < g.discardCount[whoseTurn]; k++){
+            playerDiscard[g.discard[g.whoseTurn][k]]++;
         }
 
         // get cards in players deck and first two treasure.
@@ -100,28 +112,26 @@ int main() {
         for(k=0; k <= treasure_map; k++){   // initialize all entries to 0
             playerDeck[k] = 0;
         }
-        for(k = 0; k <= g.deckCount[i]; k++){
+        for(k = 0; k <= g.deckCount[g.whoseTurn]; k++){
             if(totalTreasure < 2) {
-                if ((g.deck[i][k] == copper || g.deck[i][k] == silver || g.deck[i][k] == gold)) {
+                if ((g.deck[g.whoseTurn][k] == copper || g.deck[g.whoseTurn][k] == silver || g.deck[g.whoseTurn][k] == gold)) {
                     totalTreasure++;
-                    playerHand[g.deck[i][k]]++;
+                    playerHand[g.deck[g.whoseTurn][k]]++;
                 }
                 else{
-                    playerDiscard[g.deck[i][k]]++;
+                    playerDiscard[g.deck[g.whoseTurn][k]]++;
                 }
             }
-            playerDeck[g.deck[i][k]]++; // only add to ideal deck if not being discarded or put in hand
+            playerDeck[g.deck[g.whoseTurn][k]]++; // only add to ideal deck if not being discarded or put in hand
         }
 
         // add cards already in discard pile to ideal discard array
-        for(k=0; k<g.discardCount[i]; k++){
-            playerDiscard[g.discard[i][k]]++;
+        for(k=0; k<g.discardCount[g.whoseTurn]; k++){
+            playerDiscard[g.discard[g.whoseTurn][k]]++;
         }
 
         // play adventurer card
         int myReturn = cardEffect(adventurer,0,0,0, &g, handPos, NULL);
-
-
 
 
         if (myReturn == -1){
@@ -133,7 +143,7 @@ int main() {
         // changes to hand were made;
 
         for(k = 0; k < g.handCount[i]; k++){
-            playerHand[g.hand[i][k]]--; // decrements index of card (should be 0 when finished)
+            playerHand[g.hand[whoseTurn][k]]--; // decrements index of card (should be 0 when finished)
         }                               // to indicate current hand and array are equal
 
         // check if all entries in playerHand are 0 (indicate it was equal to current player hand
@@ -146,8 +156,8 @@ int main() {
         }
 
         // check if ideal discard pile is equal to current discard pile
-        for(k=0; k<g.discardCount[i]; k++){
-            playerDiscard[g.discard[i][k]]--;
+        for(k=0; k<g.discardCount[whoseTurn]; k++){
+            playerDiscard[g.discard[whoseTurn][k]]--;
         }
         // check if ideal discard pile is equal to current discard pile
         for(k=0; k<=treasure_map; k++){
@@ -159,8 +169,8 @@ int main() {
         }
 
         // check if deck changed properly (ideal deck and actual deck are equal)
-        for(k=0; k<g.deckCount[i];k++){
-            playerDeck[g.deck[i][k]]--;
+        for(k=0; k<g.deckCount[whoseTurn];k++){
+            playerDeck[g.deck[whoseTurn][k]]--;
         }
         for(k=0; k<= treasure_map; k++){
             if(playerDeck[k] != 0){
@@ -178,7 +188,6 @@ int main() {
                 break;
             }
         }
-
 
         if(check > 0){
             totalCheck++;
