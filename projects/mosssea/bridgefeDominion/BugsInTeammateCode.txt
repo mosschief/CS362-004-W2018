@@ -1,0 +1,30 @@
+The first bug I found caused my unit tests to not be able to be run. There was a misplaced bracket in the playSteward() function which caused an error to be thrown when the code was compiled. In order to run my tests, I needed to fix this error by commenting out the line that was causing problems. 
+
+Title: Error ‘Expected ‘)’ before numeric constant
+Classification: Serious Bug
+Platform: Linux
+Reproducible: Every time
+Description: Error thrown at line 744 of dominion.c when test suite is run. Likely because of errant discardCard() function call which has been placed outside of the  playSteward() function definition.
+Steps to Reproduce - Run test suite with command ‘make unittests.out’ 
+Workaround - There is no workaround for the user as the code will not compile. In order to compile, the offending line needs to be removed or placed withing the relevant brackets.
+
+The test suite also found errors in the Great Hall card. The suite reported that the player’s cards changed. In each case, one too many cards were found in the player’s hand. This was different than what was found in my own code, as there were no bugs found in the great hall card with the unit tests. There were, however bugs found in the great hall card with the random test. 
+
+Title: One too many cards in player hand after playing Great Hall
+Classification: Serious Bug
+Platform: Linux
+Reproducible: Every time
+Description: After playing the great hall card using cardEffect, the player has one more card in their hand than expected. 
+Steps to Reproduce - play Great Hall Card using Card effect
+Workaround - There is no workaround for the user except not using the great Hall card. There is nothing inherently wrong with the cardEffect function except when playing particular cards.
+
+
+Finally, a bug was found using the random test suite for the adventurer card. Every case revealed errors in player hand, discard and decks. This was quite similar to the results found in my own code, likely revealing that there was an inherent flaw in the original code.
+
+Title: Incorrect cards in player hand, discard and deck after playing adventurer
+Classification: Serious Bug
+Platform: Linux
+Reproducible: Every time
+Description: After playing the adventurer card using cardEffect, the player has one more card in their hand than expected. 
+Steps to Reproduce - play adventurer Card using Card effect
+Workaround - There is no workaround for the user except not using the adventurer card. There is nothing inherently wrong with the cardEffect function except when playing particular cards.
