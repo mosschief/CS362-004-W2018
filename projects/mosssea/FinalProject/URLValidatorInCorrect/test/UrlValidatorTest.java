@@ -20,62 +20,11 @@ public class UrlValidatorTest extends TestCase {
     @Rule
     public ErrorCollector collector = new ErrorCollector();
 
-    @Test
     public void testManualTest()
     {
         //You can use this function to implement your manual testing
-        UrlValidator validator = new UrlValidator(null, null, UrlValidator.ALLOW_ALL_SCHEMES);
-        try {
-            collector.checkThat(validator.isValid(null), equalTo(false));
-        } catch (Error e) {
-            collector.addError(e);
-        }
-        try {
-            collector.checkThat(validator.isValid("http"), equalTo(false));
-        } catch (Error e) {
-            collector.addError(e);
-        }
-        try {
-            collector.checkThat(validator.isValid("abc.def.google.com"), equalTo(false));
-        } catch (Error e) {
-            collector.addError(e);
-        }
-        try {
-            collector.checkThat(validator.isValid("http://www....google.com"), equalTo(false));
-        } catch (Error e) {
-            collector.addError(e);
-        }
-        try {
-            collector.checkThat(validator.isValid("http://www.@@$.com"), equalTo(false));
-        } catch (Error e) {
-            collector.addError(e);
-        }
-        try {
-            collector.checkThat(validator.isValid("http://localhost:8000"), equalTo(false));
-        } catch (Error e) {
-            collector.addError(e);
-        }
-        try {
-            collector.checkThat(validator.isValid("https://www.pir.com"), equalTo(true));
-        } catch (Error e) {
-            collector.addError(e);
-        }
-        try {
-            collector.checkThat(validator.isValid("http://www.google.com"), equalTo(true));
-        } catch (Error e) {
-            collector.addError(e);
-        }
-        try {
-            collector.checkThat(validator.isValid("https://www.google.org"), equalTo(true));
-        } catch (Error e) {
-            collector.addError(e);
-        }
-        collector.checkThat(validator.isValid("http://www.google.com/search"), equalTo(true));
-        try {
-            collector.checkThat(validator.isValid("https://www.google.com/search?source=hp&ei=VzGXWrTyKKGJ0wKdt6-gBA&q=hello&oq=hello"), equalTo(true));
-        } catch (Error e) {
-            collector.addError(e);
-        }
+        //
+        // NOT IMPLEMENTED HERE. SEE UrlValidatorTest_2.java
 
     }
     public boolean testPart(UrlValidator validator, String testUrl)
